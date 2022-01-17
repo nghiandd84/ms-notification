@@ -14,6 +14,7 @@ export class AppService {
     queue: 'user-queue'
   })
   public pubSubHandler(data: any) {
+    console.log(`From Instance ${process.env.PORT}`);
     console.log(data);
   }
 }
