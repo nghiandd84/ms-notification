@@ -1,7 +1,6 @@
 # Build docker
 # docker build . -t dn-ms-notification --no-cache
-FROM node:16-alpine
-RUN  apk add git curl
+FROM dn-ms-base
 
 ENV AUTH_REDIS_URL=redis://localhost:6379
 ENV REDIS_TTL=86400
