@@ -18,6 +18,7 @@ import migrations from './migrations';
 
 const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
   metrics: {
+    
     hostMetrics: true,
     defaultMetrics: true,
     apiMetrics: {
@@ -29,7 +30,7 @@ const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
 @Module({
   imports: [
     LoggerModule,
-    // OpenTelemetryModuleConfig,
+    OpenTelemetryModuleConfig,
     AuthModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
@@ -41,7 +42,7 @@ const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
         database: process.env.DB_NAME || 'ms_notification',
         // entities: [UserEntity],
         synchronize: true, // REMOVE on PROD, only run when develop
-        logging: true,
+        logging: false,
         // migrationsTableName: 'app_migration',
         migrations: migrations,
         // migrationsRun: true,
