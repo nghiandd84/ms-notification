@@ -25,7 +25,11 @@ export class TransformInterceptor<T>
     return next.handle().pipe(
       map((data) => {
         const statusCode = context.switchToHttp().getResponse().statusCode;
-        if (statusCode === HttpStatus.OK || statusCode === HttpStatus.CREATED || statusCode === HttpStatus.ACCEPTED) {
+        if (
+          statusCode === HttpStatus.OK ||
+          statusCode === HttpStatus.CREATED ||
+          statusCode === HttpStatus.ACCEPTED
+        ) {
           return {
             statusCode: statusCode,
             data: data,

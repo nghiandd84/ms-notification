@@ -1,8 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { APP_PORT } from 'dn-core'
-import { AtGuard } from 'dn-api-core';
+import { APP_PORT } from 'dn-core';
 import { AppModule } from './app.module';
 import { TransformInterceptor } from './transform.interceptor';
 
@@ -18,9 +17,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalPipes(new ValidationPipe());
 
-  // const reflector = new Reflector();
-  // const atGuard: any = new AtGuard(reflector);
-  // app.useGlobalGuards(atGuard);
   const documentBuilder = new DocumentBuilder()
     .setTitle('Notification app')
     .setDescription('Notification app description')
@@ -29,15 +25,20 @@ async function bootstrap() {
     .addBearerAuth();
 
   if (ENVIRONMENT !== 'LOCAL') {
-    const ENDPOINT = process.env.MS_APP_ENDPOINT || 'http://localhost/ms-notification';
+    const ENDPOINT =
+      process.env.MS_APP_ENDPOINT || 'http://localhost/ms-notification';
     documentBuilder.addServer(ENDPOINT);
   }
 
-  const config = documentBuilder.build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  if (ENVIRONMENT !== 'PROD') {
+    const config = documentBuilder.build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+  }
 
-  await app.listen(PORT);
+  app.listen(PORT).then(() => {
+    console.log(`Listen on PORT = ${PORT}`);
+  });
 
   if (module.hot) {
     module.hot.accept();

@@ -1,7 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Unicorn, USER_PERMISSION } from 'dn-core';
-import { AccessPermission , Public} from 'dn-api-core';
+import { Unicorn } from 'dn-core';
+import { Public } from 'dn-api-core';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('hello')
@@ -11,9 +11,6 @@ export class AppController {
 
   @Get()
   @Public()
-  @UseGuards(
-    AccessPermission(USER_PERMISSION.UN_ASSIGN_ROLE)
-  )
   getHello(): string {
     const unicorn = new Unicorn();
     return this.appService.getHello() + '---' + unicorn.sayHelloTo('HAHA');

@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { RabbitSubscribe as RabbitSubscribe, RABBIT_EXCHANGE_TYPE, Nack } from 'dn-api-core';
+import {
+  RabbitSubscribe as RabbitSubscribe,
+  RABBIT_EXCHANGE_TYPE,
+} from 'dn-api-core';
 import { APP_ID } from 'dn-core';
 
 @Injectable()
@@ -11,7 +14,7 @@ export class AppService {
   @RabbitSubscribe({
     exchange: `${APP_ID.USER}.${RABBIT_EXCHANGE_TYPE.TOPIC}`,
     routingKey: 'user-login',
-    queue: 'user-queue'
+    queue: 'user-queue',
   })
   public pubSubHandler(data: any) {
     console.log(`From Instance ${process.env.PORT}`);
