@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { Logger } from 'dn-api-core';
 import { APP_PORT } from 'dn-core';
 import { AppModule } from './app.module';
 import { TransformInterceptor } from './transform.interceptor';
@@ -13,9 +14,15 @@ const ENVIRONMENT = process.env.MS_APP_ENVIRONTMENT || 'LOCAL';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'debug'],
+    bufferLogs: true,
   });
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalPipes(new ValidationPipe());
+
+  app.useLogger(app.get(Logger));
+
+  app.enableShutdownHooks();
+  app.enableCors({ origin: '*' });
 
   const documentBuilder = new DocumentBuilder()
     .setTitle('Notification app')

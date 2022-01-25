@@ -2,6 +2,7 @@
 # docker build . -t dn-ms-notification --no-cache
 FROM dn-ms-base
 
+ENV APP_ENVIRONTMENT=PROD
 ENV AUTH_REDIS_URL=redis://localhost:6379
 ENV REDIS_TTL=86400
 ENV JWT_SECRET=DN-MS-APP-!@#=-0
@@ -11,6 +12,7 @@ ENV DB_HOST=3306
 ENV DB_NAME=ms_notification
 ENV DB_USER=root
 ENV DB_PASSWORD=123456
+
 
 WORKDIR /app
 

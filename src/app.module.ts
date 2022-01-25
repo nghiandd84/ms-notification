@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OpenTelemetryModule } from 'dn-api-core';
+import { OpenTelemetryModule, LoggerModule } from 'dn-api-core';
 import {
   AtGuard,
   AuthModule,
@@ -28,6 +28,8 @@ const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
 
 @Module({
   imports: [
+    LoggerModule,
+    // OpenTelemetryModuleConfig,
     AuthModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
