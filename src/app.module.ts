@@ -18,7 +18,6 @@ import migrations from './migrations';
 
 const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
   metrics: {
-    
     hostMetrics: true,
     defaultMetrics: true,
     apiMetrics: {

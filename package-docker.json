@@ -21,6 +21,7 @@
     "dn-api-core": "git+https://github.com/nghiandd84/dn-api-core.git",
     "dn-core": "git+https://github.com/nghiandd84/dn-core.git",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
     "mysql": "^2.18.1",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
@@ -28,7 +29,6 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.3.0",
-    "typeorm": "^0.2.41",
-    "lodash": "^4.17.15"
+    "typeorm": "^0.2.41"
   }
 }
